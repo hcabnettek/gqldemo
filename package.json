@@ -1,0 +1,31 @@
+{
+  "name": "graphql-server-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "apollo-server": "^2.21.0",
+    "apollo-server-express": "^2.21.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.6.0",
+    "express": "^4.17.1",
+    "graphql": "^15.5.0",
+    "graphql-postgres-subscriptions": "^1.0.5",
+    "graphql-subscriptions": "^1.2.0",
+    "graphql-tools": "^4.0.8",
+    "graphql-ws": "^4.5.0",
+    "pg": "^8.5.1",
+    "rxjs": "^7.0.0",
+    "subscriptions-transport-ws": "^0.9.18",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v18.14.0",
+    "ws": "^6.2.1"
+  }
+}

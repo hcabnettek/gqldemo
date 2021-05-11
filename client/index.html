@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>GraphQL over WebSocket</title>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/graphql-ws/umd/graphql-ws.min.js"
+    ></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      const client = graphqlWs.createClient({
+        url: 'ws://localhost:8443/graphql',
+      });
+
+      (async () => {
+        const result = new Promise((resolve, reject) => {
+          let result;
+          client.subscribe(
+            {
+              query: 'query GetChannels { channels { id, name } }',
+            },
+            {
+              next: (data) => (result = data),
+              error: reject,
+              complete: () => resolve(result),
+            },
+          );
+          
+        });
+
+        result
+          .then(({data:{channels}}) => console.table(channels))
+          .catch(e => console.log(e))
+
+      })();
+
+      (async () => {
+        const onNext = (d) => {
+          /* handle incoming values */
+          console.log(d)
+        };
+
+        let unsubscribe = () => {
+          /* complete the subscription */
+          console.log('Unsubscribing')
+        };
+
+        let p = new Promise((resolve, reject) => {
+          //debugger;
+          unsubscribe = client.subscribe(
+            {
+              query: 'subscription { channelAdded { name, id } }',
+            },
+            {
+              next: onNext,
+              error: reject,
+              complete: resolve,
+            },
+          );
+        });
+
+        p.then(v => {
+          debugger;
+          console.log(v)
+        }).catch(err => {
+          debugger;
+          console.error(err)
+        })
+
+      
+      })();
+      // consider other recipes for usage inspiration
+    </script>
+  </body>
+</html>
